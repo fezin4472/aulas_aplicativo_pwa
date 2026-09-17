@@ -4,14 +4,19 @@
     box-sizing: border-box;
 }
 
-html, body, #root {
+html,
+body, 
+#root {
     height: 100%;
 }
 
 #root {
     display: grid;
+    grid-template-rows: 48px 1fr 48px;
 }
 
 :root {
-    --primary-color: #ffffff;
+    --primary-color: #ff4500;
+    --primary-color-bright: #ff9f00;
+    --primary-color-dark: #964b00;
 }
