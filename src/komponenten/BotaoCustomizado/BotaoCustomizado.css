@@ -1,0 +1,22 @@
+.Botaocustomizado_root {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.Botaocustomizado_root:hover {
+    transform: scale(1.05);
+}
+
+.Botaocustomizado_root:active {
+    transform: scale(0.95);
+}
+
+.Botaocustomizado_primary {
+    background: var(--primary-color);
+}
+
+.Botaocustomizado_secondary {
+    background: var(--secondary-color);
+}

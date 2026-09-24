@@ -1,0 +1,6 @@
+.Main_root {
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}

@@ -19,4 +19,13 @@ body,
     --primary-color: #ff4500;
     --primary-color-bright: #ff9f00;
     --primary-color-dark: #964b00;
+
+    --secondary-color: #228b22;
+    --secondary-color-bright: #29ab87;
+    --secondary-color-dark: #004225;
+
+    --background-color-standard: #ffffff;
+
+    --text-color-standard: #000000;
+    --text-color-bright: #ffffff;
 }
