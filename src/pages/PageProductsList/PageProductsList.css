@@ -1,0 +1,15 @@
+.PageProductsList_item {
+    background: var(--secondary-color-bright);
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 0 4px ;
+}
+
+.PageProductsList_colors {
+    display: flex;
+}
+
+.PageProductsList_color-item {
+    flex: 1;
+    height: 20px;
+}
