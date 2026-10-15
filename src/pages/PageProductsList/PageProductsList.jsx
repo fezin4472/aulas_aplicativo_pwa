@@ -21,7 +21,7 @@ const produtos = [
 
 function PAGEPRODUCTSLIST() {
   return (
-    <Main titulo="DESTAQUES">
+    <Main title="DESTAQUES" returnTo="/">
       {produtos.map((item_prd, index) => {
         return (
           <div key={index} className="PageProductsList_item">

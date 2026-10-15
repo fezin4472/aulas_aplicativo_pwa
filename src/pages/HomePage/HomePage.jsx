@@ -1,25 +1,30 @@
 import Botaocustomizado from "../../komponenten/BotaoCustomizado/BotaoCustomizado";
 import Main from "../../komponenten/Voornaamst/Main";
 
+import { useNavigate } from "react-router-dom";
+
+import './HomePage.css'
+
 function HOMEPAGE() {
+    const navigate = useNavigate();
+
     return (
-        <Main>
-            main content
+        <Main title="Home Page">
+
             <Botaocustomizado
                 type="primary"
-                onClick={() => alert("até amanhã")}
+                onClick={() => navigate('/products-list')}
             >
-                salvar
+                PRODUCTS LIST
             </Botaocustomizado>
             <Botaocustomizado
                 type="secondary"
-                onClick={() => alert("se deus quiser")}
+                onClick={() => navigate('/tasks-list')}
             >
-                cancelar
+                TASKS LIST
             </Botaocustomizado>
-            <Botaocustomizado>ahhhh</Botaocustomizado>
         </Main>
-    )
+    );
 }
 
 export default HOMEPAGE;
