@@ -1,5 +1,5 @@
 .Header_root {
-    background: var(--primary-color);
+    background: linear-gradient(to top, var(--primary-color) 50%, #ff9966 50%);
     display: flex;
     align-items: center;
     justify-content: space-between;
