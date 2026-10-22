@@ -6,17 +6,19 @@
 }
 
 .Botaocustomizado_root:hover {
-    transform: scale(1.05);
+    transform: scale(1.01);
+    transition: ease 50ms;
 }
 
 .Botaocustomizado_root:active {
-    transform: scale(0.95);
+    transform: scale(0.99);
+    transition: ease 50ms;
 }
 
 .Botaocustomizado_primary {
-    background: var(--primary-color);
+    background: linear-gradient(to top, var(--primary-color) 60%, var(--primary-color-bright) 40%);
 }
 
 .Botaocustomizado_secondary {
-    background: var(--secondary-color);
+    background: linear-gradient(to top, var(--secondary-color) 60%, var(--secondary-color-bright) 40%);
 }

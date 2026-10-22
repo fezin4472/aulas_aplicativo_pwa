@@ -4,3 +4,9 @@
     flex-direction: column;
     gap: 12px;
 }
+
+.Main_Title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}

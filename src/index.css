@@ -16,14 +16,20 @@ body,
     grid-template-rows: 48px 1fr 48px;
 }
 
+a {
+    display: grid;
+    color: inherit;
+}
+
 :root {
     --primary-color: #ff4500;
-    --primary-color-bright: #ff9f00;
+    --primary-color-bright: #ff9966;
     --primary-color-dark: #964b00;
 
     --secondary-color: #228b22;
-    --secondary-color-bright: #29ab87;
+    --secondary-color-bright: #ace1af;
     --secondary-color-dark: #004225;
+    --secondary-color-alt: #29AB87;
 
     --background-color-standard: #ffffff;
 

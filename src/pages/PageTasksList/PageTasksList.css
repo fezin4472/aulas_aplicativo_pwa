@@ -1,0 +1,13 @@
+.Pagetaskslist_item {
+    display: flex;
+    padding: 6px;
+    background: var(--secondary-color-alt);
+    box-shadow: 0 0 6px #c0c0c0;
+}
+
+.Pagetaskslist_span {
+    text-align: center;
+    margin-top: 48px;
+    font-size: 32px;
+    color: var(--primary-color);
+}
