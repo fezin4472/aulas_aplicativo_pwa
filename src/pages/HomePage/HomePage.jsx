@@ -23,6 +23,12 @@ function HOMEPAGE() {
             >
                 TASKS LIST
             </Botaocustomizado>
+            <Botaocustomizado
+                type="primary"
+                onClick={() => navigate('/register')}
+            >
+                REGISTER
+            </Botaocustomizado>
         </Main>
     );
 }

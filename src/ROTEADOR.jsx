@@ -3,6 +3,7 @@ import PAGEPRODUCTSLIST from "./pages/PageProductsList/PageProductsList";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PAGETASKSLIST from "./pages/PageTasksList/PageTasksList";
+import REGISTERPAGE from "./pages/RegisterPage/RegisterPage";
 
 
 const roteador = createBrowserRouter([
@@ -18,6 +19,10 @@ const roteador = createBrowserRouter([
         path: "tasks-list",
         element: <PAGETASKSLIST />,
     },
+    {
+        path: "register",
+        element: <REGISTERPAGE />
+    }
 ]);
 
 function Roteador() {

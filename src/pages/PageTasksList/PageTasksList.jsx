@@ -4,10 +4,12 @@ import Main from '../../komponenten/Voornaamst/Main'
 import CampoCustomizado from '../../komponenten/CampoCustomizado/CampoCustomizado';
 import { IoTrashSharp } from "react-icons/io5";
 import './PageTasksList.css'
+import { SAVEONLOCALSTORAGE, SEARCHONLOCALSTORAGE } from '../../Services/localstorage.service';
+import { toast, Zoom } from 'react-toastify';
 
 function PAGETASKSLIST() {
     const [taskDescription, setTaskDescription] = useState("");
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState(SEARCHONLOCALSTORAGE("tasks") || []);
 
     const addTask = () => {
         if(taskDescription.trim()) {
@@ -15,10 +17,13 @@ function PAGETASKSLIST() {
                 id: Date.now(),
                 description: taskDescription
             }
-            setTasks([...tasks, newTask]);
+            const uptatedTasks = [...tasks, newTask];
+            setTasks(uptatedTasks);
             setTaskDescription("");
+            SAVEONLOCALSTORAGE("tasks", uptatedTasks);
+            toast.success("task added", {theme: "colored", transition: Zoom})
         }else{
-            alert("OBRIGATORY FILL")
+            toast.warn("OBRIGATORY FILL", {theme: "colored", transition: Zoom});
         }
     };
 
@@ -26,8 +31,10 @@ function PAGETASKSLIST() {
         if(confirm("you'll remove this task, you sure question mark")){
             const uptatedTasks = tasks.filter((item) => item.id !== id);
             setTasks(uptatedTasks);
+            SAVEONLOCALSTORAGE("tasks", uptatedTasks);
+            toast.success("task removed", {theme: "colored", transition: Zoom})
         }
-    }
+    };
 
     return (
         <Main title="TASKS LIST" returnTo="/">
