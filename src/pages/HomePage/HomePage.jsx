@@ -29,6 +29,12 @@ function HOMEPAGE() {
             >
                 REGISTER
             </Botaocustomizado>
+            <Botaocustomizado
+                type="secondary"
+                onClick={() => navigate('/clients-list')}
+            >
+                CLIENTS LIST
+            </Botaocustomizado>
         </Main>
     );
 }

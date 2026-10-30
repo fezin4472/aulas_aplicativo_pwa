@@ -3,16 +3,33 @@ import Main from "../../komponenten/Voornaamst/Main";
 import CampoCustomizado from "../../komponenten/CampoCustomizado/CampoCustomizado"
 import Botaocustomizado from "../../komponenten/BotaoCustomizado/BotaoCustomizado";
 import { formatWithMask, MASK_CPF } from "../../utils/formatWithMask";
+import { toast, Zoom } from 'react-toastify';
+import CPFvalidation from "../../utils/CPFvalidation";
+import Emailvalidation from "../../utils/Emailvalidation";
+import { saveClient } from "../../Services/clients.service";
 
 function REGISTERPAGE() {
-    const {name, setName} = useState("");
-    const {address, setAddress} = useState("");
-    const {cpf, setCPF} = useState("");
-    const {birthdate, setBirthdate} = useState("");
-    const {email, setEmail} = useState("");
-    const {password, setPassword} = useState("");
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
+    const [cpf, setCPF] = useState("");
+    const [birthdate, setBirthdate] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const save = () => {
+        if(!name.trim() || !email.trim()){
+            toast.warn("OBRIGATORY FILL", {theme: "colored", transition: Zoom})
+            return;
+        }
+
+        if(!Emailvalidation(email)){
+            toast.error("INVALID EMAIL", {theme: "colored", transition: Zoom})
+        }
+
+        if(cpf.trim() && CPFvalidation(cpf) === false){
+            toast.error("INVALID", {theme: "colored", transition: Zoom})
+        }
+
         const client = {
             name,
             address,
@@ -22,6 +39,8 @@ function REGISTERPAGE() {
             password,
         };
         console.log(client);
+        saveClient(client);
+        toast.success("client saved", {theme: "colored", transition: Zoom})
     }
 
     return (
@@ -38,7 +57,6 @@ function REGISTERPAGE() {
             />
             <CampoCustomizado 
                 label="CPF"
-                type="number"
                 value={cpf}
                 onChange={(e) => setCPF(formatWithMask(e.target.value, MASK_CPF))}
             />
