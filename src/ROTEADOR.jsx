@@ -21,7 +21,7 @@ const roteador = createBrowserRouter([
         element: <PAGETASKSLIST />,
     },
     {
-        path: "register",
+        path: "register/:id?",
         element: <REGISTERPAGE />
     },
     {

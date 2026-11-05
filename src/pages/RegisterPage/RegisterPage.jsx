@@ -1,94 +1,104 @@
-import { useState } from "react"
+/* eslint-disable react-hooks/set-state-in-effect */
+import { useEffect, useState } from "react";
 import Main from "../../komponenten/Voornaamst/Main";
-import CampoCustomizado from "../../komponenten/CampoCustomizado/CampoCustomizado"
+import CampoCustomizado from "../../komponenten/CampoCustomizado/CampoCustomizado";
 import Botaocustomizado from "../../komponenten/BotaoCustomizado/BotaoCustomizado";
 import { formatWithMask, MASK_CPF } from "../../utils/formatWithMask";
-import { toast, Zoom } from 'react-toastify';
+import { toast, Zoom } from "react-toastify";
 import CPFvalidation from "../../utils/CPFvalidation";
-import Emailvalidation from "../../utils/Emailvalidation";
-import { saveClient } from "../../Services/clients.service";
+import Emailvalidation from "../../utils/Emailvalidation.js";
+import { saveClient, searchClients } from "../../Services/clients.service";
+import { useParams } from "react-router-dom";
 
 function REGISTERPAGE() {
-    const [name, setName] = useState("");
-    const [address, setAddress] = useState("");
-    const [cpf, setCPF] = useState("");
-    const [birthdate, setBirthdate] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [formClient, setFormClient] = useState({
+        id: "",
+        name: "",
+        address: "",
+        cpf: "",
+        birthdate: "",
+        email: "",
+    });
+
+    const params = useParams();
+
+    useEffect(() => {
+        if (params.id) {
+            const clientToEdit = searchClients().find(
+                (item) => item.id === +params.id,
+            );
+
+            if (clientToEdit) {
+                setFormClient(clientToEdit);
+            }
+        }
+    }, [params.id]);
 
     const save = () => {
-        if(!name.trim() || !email.trim()){
-            toast.warn("OBRIGATORY FILL", {theme: "colored", transition: Zoom})
+        if (!formClient.name.trim() || !formClient.email.trim()) {
+            toast.warn("OBRIGATORY FILL", { theme: "colored", transition: Zoom });
             return;
         }
 
-        if(!Emailvalidation(email)){
-            toast.error("INVALID EMAIL", {theme: "colored", transition: Zoom})
+        if (!Emailvalidation(formClient.email)) {
+            toast.error("INVALID EMAIL", { theme: "colored", transition: Zoom });
         }
 
-        if(cpf.trim() && CPFvalidation(cpf) === false){
-            toast.error("INVALID", {theme: "colored", transition: Zoom})
+        if (formClient.cpf.trim() && CPFvalidation(formClient.cpf) === false) {
+            toast.error("INVALID", { theme: "colored", transition: Zoom });
         }
 
-        const client = {
-            name,
-            address,
-            cpf,
-            birthdate,
-            email,
-            password,
-        };
-        console.log(client);
-        saveClient(client);
-        toast.success("client saved", {theme: "colored", transition: Zoom})
-    }
+        saveClient(formClient);
+        toast.success("client saved", { theme: "colored", transition: Zoom });
+    };
+
+    const title = formClient.id ? "edit client" : "new client";
 
     return (
-        <Main title="new client" returnTo="/">
+        <Main title={title} returnTo="/">
             <CampoCustomizado
                 label="Nome"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={formClient.name}
+                onChange={(e) =>
+                    setFormClient({ ...formClient, name: e.target.value })
+                }
+                maxLength={50}
             />
-            <CampoCustomizado 
+            <CampoCustomizado
                 label="Endereço"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                value={formClient.address}
+                onChange={(e) =>
+                    setFormClient({ ...formClient, address: e.target.value })
+                }
             />
-            <CampoCustomizado 
+            <CampoCustomizado
                 label="CPF"
-                value={cpf}
-                onChange={(e) => setCPF(formatWithMask(e.target.value, MASK_CPF))}
+                value={formClient.cpf}
+                onChange={(e) =>
+                    setFormClient({ ...formClient, cpf: formatWithMask(e.target.value, MASK_CPF)  })
+                }
             />
-            <CampoCustomizado 
+            <CampoCustomizado
                 label="Data De Nasc."
                 type="date"
-                value={birthdate}
-                onChange={(e) => setBirthdate(e.target.value)}
+                value={formClient.birthdate}
+                onChange={(e) =>
+                    setFormClient({ ...formClient, birthdate: e.target.value })
+                }
             />
             <CampoCustomizado
                 label="E-mail"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <CampoCustomizado 
-                label="Senha"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <CampoCustomizado 
-                label="Confirmar senha"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formClient.email}
+                onChange={(e) =>
+                    setFormClient({ ...formClient, email: e.target.value })
+                }
             />
 
             <Botaocustomizado type="primary" onClick={save}>
                 save
             </Botaocustomizado>
         </Main>
-    )
+    );
 }
 
 export default REGISTERPAGE;
