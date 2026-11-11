@@ -1,18 +1,21 @@
-import { IoAddCircle, IoMailOutline, IoPencilOutline, IoTrash } from "react-icons/io5";
+import { useState } from "react";
 import Main from "../../komponenten/Voornaamst/Main";
 import { searchClients } from "../../Services/clients.service";
 import "./PageClientsList.css";
-import { useState } from "react";
+import { IoAddCircle, IoMailOutline, IoPencilOutline, IoTrash } from "react-icons/io5";
+
 import { SAVEONLOCALSTORAGE } from "../../Services/localstorage.service";
 import { toast, Zoom } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import CampoCustomizado from "../../komponenten/CampoCustomizado/CampoCustomizado";
 
 function PAGECLIENTSLIST() {
     const navigate = useNavigate();
     const [clients, setClients] = useState(searchClients());
+    const [searchTerm, setSearchTerm] = useState("");
     
     const deleteClient = (clientToDelete) => {
-        if(confirm(`you'll delete ${clientToDelete}, you sure question mark`)){
+        if (confirm(`you'll delete ${clientToDelete}, you sure question mark`)) {
             const uptatedClients = clients.filter((item) => item.id !== clientToDelete.id);
             setClients(uptatedClients);
             SAVEONLOCALSTORAGE("clients", uptatedClients);
@@ -24,11 +27,23 @@ function PAGECLIENTSLIST() {
         navigate("/register/" + clientToEdit.id);
     };
 
+    const filteredClients = clients.filter((item) => {
+        return item.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
     return (
         <Main title="clients list" returnTo="/">
-            {clients.map((item) => {
+            <CampoCustomizado
+                type="search"
+                label="search"
+                placeholder="type the client's name"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+            />
+
+            {filteredClients.map((item, index) => {
                 return (
-                    <div className="PageClientsList-item">
+                    <div key={index} className="PageClientsList-item">
                         <div>
                             <h3>{item.name}</h3>
                             <span className="PageClientsList-item-email">
@@ -37,9 +52,13 @@ function PAGECLIENTSLIST() {
                             </span>
                         </div>
 
-                        <div>
-                            <IoPencilOutline onClick={() => editClient(item)}/>
-                            <IoTrash onClick={() => deleteClient(item)}/>
+                        <div className="PageClientsList-item-action">
+                            <IoPencilOutline size={24} onClick={() => editClient(item)}/>
+                            <IoTrash
+                                size={24}
+                                color="red"
+                                onClick={() => deleteClient(item)}
+                            />
                         </div>
                     </div>
                 );

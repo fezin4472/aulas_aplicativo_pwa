@@ -21,7 +21,6 @@ function REGISTERPAGE() {
     });
 
     const params = useParams();
-
     useEffect(() => {
         if (params.id) {
             const clientToEdit = searchClients().find(
@@ -93,6 +92,37 @@ function REGISTERPAGE() {
                     setFormClient({ ...formClient, email: e.target.value })
                 }
             />
+
+            <CampoCustomizado 
+                type="file"
+                accept="image/*"
+                label="Photo"
+                onChange={(e) => {
+                    const image = e.target.files[0];
+                    if (image) {
+                        const reader = new FileReader();
+                        reader.onload = (event) => {
+                        setFormClient({ ...formClient, photo: event.target.result });
+                    };
+                        reader.readAsDataURL(image);
+                    }
+                }}
+            />
+
+            {formClient.photo && (
+                <div>
+                    <img
+                        src={formClient.photo}
+                        alt="client photo"
+                        style={{
+                            width: "150px",
+                            height: "150px",
+                            objectFit: "cover",
+                            borderRadius: "8px",
+                        }}
+                    />
+                </div>
+            )}
 
             <Botaocustomizado type="primary" onClick={save}>
                 save
