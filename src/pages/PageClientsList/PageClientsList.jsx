@@ -3,7 +3,6 @@ import Main from "../../komponenten/Voornaamst/Main";
 import { searchClients } from "../../Services/clients.service";
 import "./PageClientsList.css";
 import { IoAddCircle, IoMailOutline, IoPencilOutline, IoTrash } from "react-icons/io5";
-
 import { SAVEONLOCALSTORAGE } from "../../Services/localstorage.service";
 import { toast, Zoom } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -53,7 +52,10 @@ function PAGECLIENTSLIST() {
                         </div>
 
                         <div className="PageClientsList-item-action">
-                            <IoPencilOutline size={24} onClick={() => editClient(item)}/>
+                            <IoPencilOutline
+                                size={24}
+                                onClick={() => editClient(item)}
+                            />
                             <IoTrash
                                 size={24}
                                 color="red"

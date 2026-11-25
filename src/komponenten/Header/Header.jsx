@@ -9,7 +9,7 @@ function Header() {
                 <div>fsdihs</div>
             </Avatar>
         </header>
-    )
+    );
 }
 
-export default Header
+export default Header;
